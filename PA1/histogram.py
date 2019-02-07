@@ -1,5 +1,5 @@
-# sobelFilter.py
-# John Hacker's Sobel Filtering
+# histogram.py
+# John Hacker's Histogram
 # CAP 4453 Spring 19
 
 # 

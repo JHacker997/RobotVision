@@ -1,5 +1,5 @@
-# sobelFilter.py
-# John Hacker's Sobel Filtering
+# fastGaussian.py
+# John Hacker's Fast Gaussian Filtering
 # CAP 4453 Spring 19
 
 # 

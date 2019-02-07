@@ -1,5 +1,5 @@
-# sobelFilter.py
-# John Hacker's Sobel Filtering
+# entropy.py
+# John Hacker's Entropy Thresholding
 # CAP 4453 Spring 19
 
 # 
