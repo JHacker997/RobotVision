@@ -1,6 +1,6 @@
 # gaussianFilter.py
-# John Hacker's Box Filter
-# CAP 4453
+# John Hacker's Gaussian Filtering
+# CAP 4453 Spring 19
 
 #   Increasing the sigma increased how similar each pixel is to each other.
 # The images from this filter are significantly darker than the output
@@ -10,8 +10,8 @@
 # smooted by median filter because it has a lot of noise and the median filter
 # is best at taking out outliers/noise. I think image2 is best smoothed by box 
 # filter because it has blocky diagonals and the box filter takes all pixels
-# around a pixel to find its value, giving increasing piority to pixels toward
-# the center.
+# around a pixel to find its value, giving the same weight to every pixel in
+# the kernel.
 
 import PIL
 import matplotlib
@@ -25,8 +25,14 @@ from matplotlib import pyplot
 
 # Input: image, kenerl size, sigma value
 # Output: image with gaussian filter applied
-def gaussFilter(img, size, sigma):
+def gaussFilter(img, sigma):
     sum = 0
+
+    # Find the size of the kernel
+    size = sigma * 6
+
+    if (size % 2 == 0):
+        size = size + 1
 
     # Create the kernel
     kernel = numpy.ones((size, size), numpy.float32)
@@ -42,11 +48,11 @@ def gaussFilter(img, size, sigma):
             y = j + offset
 
             # Calculate the gaussian value for the current kernel pixel
-            # Based on formula from class notes
-            kernel[i][j] = (1 / (2 * numpy.pi * numpy.square(sigma))) * numpy.exp(-1 * (numpy.square(x) + numpy.square(y)) / (numpy.square(sigma)))
+            # Based on formula from class notes except for the 2 in the denominator of the exponential
+            kernel[i][j] = (1 / (2 * numpy.pi * numpy.square(sigma))) * numpy.exp(-1 * (numpy.square(x) + numpy.square(y)) / (2 * numpy.square(sigma)))
             sum = sum + kernel[i][j]
 
-    print(str(kernel))
+    #print(str(kernel))
     print(str(sum))
 
     # Return the smoothed image
@@ -57,9 +63,9 @@ img1 = cv2.imread("./Images/image1.png", 1)
 img2 = cv2.imread("./Images/image2.png", 1)
 
 # Apply the gaussian filter to the image1s with sigmas 3, 5, and 7
-gauss31 = gaussFilter(img1, 3, 3)
-gauss51 = gaussFilter(img1, 3, 5)
-gauss71 = gaussFilter(img1, 3, 7)
+gauss31 = gaussFilter(img1, 3)
+gauss51 = gaussFilter(img1, 5)
+gauss71 = gaussFilter(img1, 7)
 
 # Plot the smoothed image1s
 pyplot.subplot(231), pyplot.imshow(gauss31), pyplot.title('Gauss sigma=3')
@@ -70,9 +76,9 @@ pyplot.subplot(233), pyplot.imshow(gauss71), pyplot.title('Gauss sigma=7')
 pyplot.xticks([]), pyplot.yticks([])
 
 # Apply the gaussian filter to the image2s with sigmas 3, 5, and 7
-gauss32 = gaussFilter(img2, 3, 3)
-gauss52 = gaussFilter(img2, 3, 5)
-gauss72 = gaussFilter(img2, 3, 7)
+gauss32 = gaussFilter(img2, 3)
+gauss52 = gaussFilter(img2, 5)
+gauss72 = gaussFilter(img2, 7)
 
 # Plot the smoothed image2s
 pyplot.subplot(234), pyplot.imshow(gauss32)
