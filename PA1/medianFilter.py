@@ -1,6 +1,6 @@
 # medianFilter.py
-# John Hacker's Box Filter
-# CAP 4453
+# John Hacker's Median Filtering
+# CAP 4453 Spring 19
 
 #   As the kernel increases in size, the angles get more smooth
 # and blurry and the corners become more rounded.

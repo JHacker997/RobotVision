@@ -1,6 +1,6 @@
 # boxFilter.py
-# John Hacker's Box Filter
-# CAP 4453
+# John Hacker's Box Filtering
+# CAP 4453 Spring 19
 
 #   The 3x3 filters smooth the images and decrease the noise from the
 # original images. The 5x5 filters make the images more blurry and

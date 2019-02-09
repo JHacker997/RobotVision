@@ -49,7 +49,7 @@ def gaussFilter(img, sigma):
 
             # Calculate the gaussian value for the current kernel pixel
             # Based on formula from class notes except for the 2 in the denominator of the exponential
-            kernel[i][j] = (1 / (2 * numpy.pi * numpy.square(sigma))) * numpy.exp(-1 * (numpy.square(x) + numpy.square(y)) / (2 * numpy.square(sigma)))
+            kernel[i][j] = (1 / (numpy.sqrt(2 * numpy.pi) * numpy.square(sigma))) * numpy.exp(-1 * (numpy.square(x) + numpy.square(y)) / (2 * numpy.square(sigma)))
             sum = sum + kernel[i][j]
 
     #print(str(kernel))
@@ -62,30 +62,30 @@ def gaussFilter(img, sigma):
 img1 = cv2.imread("./Images/image1.png", 1)
 img2 = cv2.imread("./Images/image2.png", 1)
 
-# Apply the gaussian filter to the image1s with sigmas 3, 5, and 7
+# Apply the gaussian filter to the image1s with sigmas 3, 5, and 10
 gauss31 = gaussFilter(img1, 3)
 gauss51 = gaussFilter(img1, 5)
-gauss71 = gaussFilter(img1, 7)
+gauss101 = gaussFilter(img1, 10)
 
 # Plot the smoothed image1s
 pyplot.subplot(231), pyplot.imshow(gauss31), pyplot.title('Gauss sigma=3')
 pyplot.xticks([]), pyplot.yticks([])
 pyplot.subplot(232), pyplot.imshow(gauss51), pyplot.title('Gauss sigma=5')
 pyplot.xticks([]), pyplot.yticks([])
-pyplot.subplot(233), pyplot.imshow(gauss71), pyplot.title('Gauss sigma=7')
+pyplot.subplot(233), pyplot.imshow(gauss101), pyplot.title('Gauss sigma=10')
 pyplot.xticks([]), pyplot.yticks([])
 
-# Apply the gaussian filter to the image2s with sigmas 3, 5, and 7
+# Apply the gaussian filter to the image2s with sigmas 3, 5, and 10
 gauss32 = gaussFilter(img2, 3)
 gauss52 = gaussFilter(img2, 5)
-gauss72 = gaussFilter(img2, 7)
+gauss102 = gaussFilter(img2, 10)
 
 # Plot the smoothed image2s
 pyplot.subplot(234), pyplot.imshow(gauss32)
 pyplot.xticks([]), pyplot.yticks([])
 pyplot.subplot(235), pyplot.imshow(gauss52)
 pyplot.xticks([]), pyplot.yticks([])
-pyplot.subplot(236), pyplot.imshow(gauss72)
+pyplot.subplot(236), pyplot.imshow(gauss102)
 pyplot.xticks([]), pyplot.yticks([])
 
 # Show the plotted images
