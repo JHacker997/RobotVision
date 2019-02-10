@@ -2,8 +2,10 @@
 # John Hacker's Median Filtering
 # CAP 4453 Spring 19
 
-#   As the kernel increases in size, the angles get more smooth
-# and blurry and the corners become more rounded.
+'''
+    As the kernel increases in size, the angles get more smooth
+and blurry and the corners become more rounded.
+'''
 
 import PIL
 import matplotlib
@@ -14,6 +16,7 @@ import cv2
 
 from PIL import Image
 from matplotlib import pyplot
+from scipy import ndimage
 
 # Input: image and value for a size x size kernel
 # Output: smoothed image with median filter applied

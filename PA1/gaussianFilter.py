@@ -2,16 +2,18 @@
 # John Hacker's Gaussian Filtering
 # CAP 4453 Spring 19
 
-#   Increasing the sigma increased how similar each pixel is to each other.
-# The images from this filter are significantly darker than the output
-# from the previous two questions. 
-#   The image1 seems to be best smoothed by the median filter and the image2
-# seems to be best smoothed by the Gaussian filter. I think image1 is best 
-# smooted by median filter because it has a lot of noise and the median filter
-# is best at taking out outliers/noise. I think image2 is best smoothed by box 
-# filter because it has blocky diagonals and the box filter takes all pixels
-# around a pixel to find its value, giving the same weight to every pixel in
-# the kernel.
+'''
+    Increasing the sigma increased how similar each pixel is to each other.
+The images from this filter are significantly darker than the output
+from the previous two questions. 
+    The image1 seems to be best smoothed by the median filter and the image2
+seems to be best smoothed by the Gaussian filter. I think image1 is best 
+smooted by median filter because it has a lot of noise and the median filter
+is best at taking out outliers/noise. I think image2 is best smoothed by box 
+filter because it has blocky diagonals and the box filter takes all pixels
+around a pixel to find its value, giving the same weight to every pixel in
+the kernel.
+'''
 
 import PIL
 import matplotlib
@@ -22,12 +24,11 @@ import cv2
 
 from PIL import Image
 from matplotlib import pyplot
+from scipy import ndimage
 
 # Input: image, kenerl size, sigma value
 # Output: image with gaussian filter applied
 def gaussFilter(img, sigma):
-    sum = 0
-
     # Find the size of the kernel
     size = sigma * 6
 
@@ -49,11 +50,7 @@ def gaussFilter(img, sigma):
 
             # Calculate the gaussian value for the current kernel pixel
             # Based on formula from class notes except for the 2 in the denominator of the exponential
-            kernel[i][j] = (1 / (numpy.sqrt(2 * numpy.pi) * numpy.square(sigma))) * numpy.exp(-1 * (numpy.square(x) + numpy.square(y)) / (2 * numpy.square(sigma)))
-            sum = sum + kernel[i][j]
-
-    #print(str(kernel))
-    print(str(sum))
+            kernel[i][j] = (1 / (numpy.sqrt(2 * numpy.pi) * numpy.square(sigma))) * numpy.exp(-1 * (numpy.square(x) + numpy.square(y)) / (numpy.square(sigma)))
 
     # Return the smoothed image
     return cv2.filter2D(img, -1, kernel)

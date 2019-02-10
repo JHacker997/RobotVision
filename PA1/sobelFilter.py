@@ -2,12 +2,14 @@
 # John Hacker's Sobel Filtering
 # CAP 4453 Spring 19
 
-#   The Sobel Filtering shows where edges in the image are. The firt
-# image has a lot of noise, so the Sobel filter finds a lot of edges
-# around all the random dots along with the shapes. It struggles to
-# find the edges in the blocky gradient in the first image that it
-# can find in the second image. The second image finds the edges very
-# cleanly because it did not have a lot of noise to begin with.
+'''
+    The Sobel Filtering shows where edges in the image are. The firt
+image has a lot of noise, so the Sobel filter finds a lot of edges
+around all the random dots along with the shapes. It struggles to
+find the edges in the blocky gradient in the first image that it
+can find in the second image. The second image finds the edges very
+cleanly because it did not have a lot of noise to begin with.
+'''
 
 import PIL
 import matplotlib
@@ -20,7 +22,9 @@ from PIL import Image
 from matplotlib import pyplot
 from scipy import ndimage
 
+# Returns an image with the Sobel filter applied to a given image
 def sobel(img):
+    # Create and array of the image
     imgArray = numpy.array(img, dtype=float)
 
     # Create the kernel
@@ -31,52 +35,39 @@ def sobel(img):
     sobX = ndimage.convolve(imgArray, kernelX)
     sobY = ndimage.convolve(imgArray, kernelY)
 
+    # Find the size of the image
     width = len(imgArray)
     height = len(imgArray[0])
 
+    # Create the array for the sobel filtered image
     sob = numpy.ndarray((width, height))
 
+    # Fill the image with the magnitude of the x and y sobel filters
     for i in range(height):
         for j in range(width):
             sob[i][j] = numpy.sqrt(numpy.square(sobX[i][j]) + numpy.square(sobY[i][j]))
     
+    # Turn the array into an image
     return Image.fromarray(sob)
-    #return cv2.filter2D(img, -1, kernel)
 
-
-def magnitude(imgX, imgY):
-    width = imgX.shape[0]
-    height = imgX.shape[1]
-
-    #imgMag = numpy.ones((width, height), numpy.float32)
-    imgMag = numpy.ndarray((height, width))
-
-
-    # Loop through all the pixels in the kernel
-    for i in range(0, width):
-        for j in range(0, height):
-            # Make the current pixel the magnitude of the other two images
-            imgMag[i][j] = numpy.sqrt(int(numpy.square(imgX[i][j])) + numpy.square(int(imgY[i][j])))
-
-    imgMag.astype(int)
-
-    return imgMag
-
+# Open the images
 img1 = Image.open("./Images/image1.png")
 img2 = Image.open("./Images/image2.png")
 
-sobx1 = sobel(img1)
+# Use the sobel filter on the images
+sob1 = sobel(img1)
+sob2 = sobel(img2)
 
-sobx2 = sobel(img2)
-
+# Plot the original and filtered images
 pyplot.subplot(221), pyplot.imshow(img1, cmap = 'gray'), pyplot.title('Original Image 1')
 pyplot.xticks([]), pyplot.yticks([])
-pyplot.subplot(222), pyplot.imshow(sobx1, cmap = 'gray'), pyplot.title('Sobel Image 1')
+pyplot.subplot(222), pyplot.imshow(sob1, cmap = 'gray'), pyplot.title('Sobel Image 1')
 pyplot.xticks([]), pyplot.yticks([])
 
 pyplot.subplot(223), pyplot.imshow(img2, cmap = 'gray'), pyplot.title('Original Image 1')
 pyplot.xticks([]), pyplot.yticks([])
-pyplot.subplot(224), pyplot.imshow(sobx2, cmap = 'gray'), pyplot.title('Sobel Image 1')
+pyplot.subplot(224), pyplot.imshow(sob2, cmap = 'gray'), pyplot.title('Sobel Image 1')
 pyplot.xticks([]), pyplot.yticks([])
 
+# Show the plotted images
 pyplot.show()

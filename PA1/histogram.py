@@ -2,12 +2,14 @@
 # John Hacker's Histogram
 # CAP 4453 Spring 19
 
-#   This program runs by showing the histogram with 256 bins, then shows
-# the histogram with 128 bins AFTER THE PREVIOUS PLOT IS CLOSED. Then the
-# histogram for 64 bins will show after the previous plot is closed.
-#   Histograms are made by using a bar graph to plot the number of pixels
-# that have an intensity equal to the x-axis value or within a bin that
-# starts with that value.
+'''
+    This program runs by showing the histogram with 256 bins, then shows
+the histogram with 128 bins AFTER THE PREVIOUS PLOT IS CLOSED. Then the
+histogram for 64 bins will show after the previous plot is closed.
+    Histograms are made by using a bar graph to plot the number of pixels
+that have an intensity equal to the x-axis value or within a bin that
+starts with that value.
+'''
 
 import PIL
 import matplotlib
@@ -18,6 +20,7 @@ import cv2
 
 from PIL import Image
 from matplotlib import pyplot
+from scipy import ndimage
 
 def createHistogram(img, maximum):
     # Create the frequency array
@@ -53,7 +56,7 @@ def createHistogram(img, maximum):
         bins[i] = i
     
     # Plot the intensities into a bar graph
-    pyplot.bar(bins, graphIntensities)
+    pyplot.bar(bins, graphIntensities), pyplot.title("Histogram " + str(maximum))
     pyplot.show()
 
     return

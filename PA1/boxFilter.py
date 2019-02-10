@@ -2,9 +2,11 @@
 # John Hacker's Box Filtering
 # CAP 4453 Spring 19
 
-#   The 3x3 filters smooth the images and decrease the noise from the
-# original images. The 5x5 filters make the images more blurry and
-# get rid of more of the noise.
+'''
+    The 3x3 filters smooth the images and decrease the noise from the
+original images. The 5x5 filters make the images more blurry and
+get rid of more of the noise.
+'''
 
 import PIL
 import matplotlib
@@ -15,6 +17,7 @@ import cv2
 
 from PIL import Image
 from matplotlib import pyplot
+from scipy import ndimage
 
 # Open the images
 img1 = cv2.imread("./Images/image1.png", 1)
