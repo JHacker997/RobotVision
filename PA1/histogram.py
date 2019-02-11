@@ -47,7 +47,7 @@ def createHistogram(img, maximum):
     graphIntensities = numpy.zeros(maximum)
     curInt = 0
     for i in range(256):
-        if i % interval == 0 and i is not 0:
+        if (i % interval == 0 and i != 0):
             curInt += 1
         graphIntensities[curInt] += intensities[i]
     
