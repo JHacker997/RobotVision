@@ -2,7 +2,7 @@ import argparse
 import time
 
 import torch
-from torch import optim as optim
+from torch import optim
 from torch.nn import functional as F
 from torchvision import datasets, transforms
 
@@ -89,6 +89,7 @@ def train_and_test(args, device, model, test_loader, train_loader):
 
 
 def main():
+
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--mode', type=int, default=1, metavar='N',

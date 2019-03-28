@@ -1,4 +1,4 @@
-__author__ = "Aisha Urooj"
+__author__ = "John Hacker"
 
 import torch.nn as nn
 
@@ -11,8 +11,12 @@ class Model_1(nn.Module):
         #
         # ----------------- YOUR CODE HERE ----------------------
         #
+
+        self.input_layer = nn.Linear(input_dim, hidden_size)
+        self.sigmoid = nn.Sigmoid()
+
         # Uncomment the following stmt with appropriate input dimensions once model's implementation is done.
-        # self.output_layer = nn.Linear(hidden_size, 10)
+        self.output_layer = nn.Linear(hidden_size, 10)
 
     def forward(self, x):
         # ======================================================================
@@ -21,10 +25,12 @@ class Model_1(nn.Module):
         # ----------------- YOUR CODE HERE ----------------------
         #
 
+        features = self.input_layer(x)
+        features = self.sigmoid(features)
+        features = self.output_layer(features)
+
         # Uncomment the following return stmt once method implementation is done.
-        # return  features
-        # Delete line return NotImplementedError() once method is implemented.
-        return NotImplementedError()
+        return  features
 
 class Model_2(nn.Module):
     def __init__(self, hidden_size):
@@ -34,8 +40,24 @@ class Model_2(nn.Module):
         #
         # ----------------- YOUR CODE HERE ----------------------
         #
+
+        self.in_dim = 7 * 7 * 40
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.Sigmoid(),
+            nn.MaxPool2d(2, stride=2))
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(40, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.Sigmoid(),
+            nn.MaxPool2d(2, stride=2))
+
+        self.input_layer = nn.Linear(self.in_dim, hidden_size)
+        self.sigmoid = nn.Sigmoid()
+
         # Uncomment the following stmt with appropriate input dimensions once model's implementation is done.
-        # self.output_layer = nn.Linear(in_dim, 10)
+        self.output_layer = nn.Linear(hidden_size, 10)
 
     def forward(self, x):
         # ======================================================================
@@ -44,10 +66,16 @@ class Model_2(nn.Module):
         # ----------------- YOUR CODE HERE ----------------------
         #
 
+        xSize = x.size(0)
+        features = self.conv1(x)
+        features = self.conv2(features)
+        features = features.view(xSize, -1)
+        features = self.input_layer(features)
+        features = self.sigmoid(features)
+        features = self.output_layer(features)
+
         # Uncomment the following return stmt once method implementation is done.
-        # return  features
-        # Delete line return NotImplementedError() once method is implemented.
-        return NotImplementedError()
+        return  features
 
 
 class Model_3(nn.Module):
@@ -58,8 +86,25 @@ class Model_3(nn.Module):
         #
         # ----------------- YOUR CODE HERE ----------------------
         #
+
+        self.in_dim = 7 * 7 * 40
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2))
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(40, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2))
+        
+
+        self.input_layer = nn.Linear(self.in_dim, hidden_size)
+        self.sigmoid = nn.Sigmoid()
+
         # Uncomment the following stmt with appropriate input dimensions once model's implementation is done.
-        # self.output_layer = nn.Linear(in_dim, 10)
+        self.output_layer = nn.Linear(hidden_size, 10)
 
     def forward(self, x):
         # ======================================================================
@@ -67,11 +112,17 @@ class Model_3(nn.Module):
         #
         # ----------------- YOUR CODE HERE ----------------------
         #
+        
+        xSize = x.size(0)
+        features = self.conv1(x)
+        features = self.conv2(features)
+        features = features.view(xSize, -1)
+        features = self.input_layer(features)
+        features = self.sigmoid(features)
+        features = self.output_layer(features)
 
-        # Uncomment the following return stmt once method implementation is done.
-        # return  features
-        # Delete line return NotImplementedError() once method is implemented.
-        return NotImplementedError()
+        return features
+
 
 class Model_4(nn.Module):
     def __init__(self, hidden_size):
@@ -80,8 +131,26 @@ class Model_4(nn.Module):
         # Two convolutional layers + two fully connected layers, with ReLU.
         #
         # ----------------- YOUR CODE HERE ----------------------
+        #
+
+        self.in_dim = 7 * 7 * 40
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2))
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(40, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2))
+
+        self.input_layer = nn.Linear(self.in_dim, hidden_size)
+        self.middle_layer = nn.Linear(hidden_size, hidden_size)
+        self.sigmoid = nn.Sigmoid()
+        
         # Uncomment the following stmt with appropriate input dimensions once model's implementation is done.
-        # self.output_layer = nn.Linear(in_dim, 10)
+        self.output_layer = nn.Linear(hidden_size, 10)
 
     def forward(self, x):
         # ======================================================================
@@ -90,10 +159,17 @@ class Model_4(nn.Module):
         # ----------------- YOUR CODE HERE ----------------------
         #
 
-        # Uncomment the following return stmt once method implementation is done.
-        # return  features
-        # Delete line return NotImplementedError() once method is implemented.
-        return NotImplementedError()
+        xSize = x.size(0)
+        features = self.conv1(x)
+        features = self.conv2(features)
+        features = features.view(xSize, -1)
+        features = self.input_layer(features)
+        features = self.sigmoid(features)
+        features = self.middle_layer(features)
+        features = self.sigmoid(features)
+        features = self.output_layer(features)
+
+        return features
 
 class Model_5(nn.Module):
     def __init__(self, hidden_size):
@@ -104,8 +180,26 @@ class Model_5(nn.Module):
         #
         # ----------------- YOUR CODE HERE ----------------------
         #
+
+        self.in_dim = 7 * 7 * 40
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(1, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2))
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(40, 40, 5, stride=1, padding=2),
+            nn.BatchNorm2d(40),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2))
+        
+        self.drop = nn.Dropout()
+        self.input_layer = nn.Linear(self.in_dim, hidden_size)
+        self.middle_layer = nn.Linear(hidden_size, hidden_size)
+        self.relu = nn.ReLU()
+        
         # Uncomment the following stmt with appropriate input dimensions once model's implementation is done.
-        # self.output_layer = nn.Linear(in_dim, 10)
+        self.output_layer = nn.Linear(hidden_size, 10)
 
     def forward(self, x):
         # ======================================================================
@@ -113,18 +207,26 @@ class Model_5(nn.Module):
         #
         # ----------------- YOUR CODE HERE ----------------------
         #
+        
+        xSize = x.size(0)
+        features = self.conv1(x)
+        features = self.conv2(features)
+        features = features.view(xSize, -1)
+        features = self.drop(features)
+        features = self.input_layer(features)
+        features = self.relu(features)
+        features = self.middle_layer(features)
+        features = self.sigmoid(features)
+        features = self.output_layer(features)
 
-        # Uncomment the following return stmt once method implementation is done.
-        # return  features
-        # Delete line return NotImplementedError() once method is implemented.
-        return NotImplementedError()
+        return features
 
 
 class Net(nn.Module):
     def __init__(self, mode, args):
         super().__init__()
         self.mode = mode
-        self.hidden_size= args.hidden_size
+        self.hidden_size = args.hidden_size
         # model 1: base line
         if mode == 1:
             in_dim = 28*28 # input image size is 28x28
@@ -149,7 +251,7 @@ class Net(nn.Module):
 
     def forward(self, x):
         if self.mode == 1:
-            x = x.view(-1, 28* 28)
+            x = x.view(-1, 28 * 28)
             x = self.model(x)
         if self.mode in [2, 3, 4, 5]:
             x = self.model(x)
@@ -158,6 +260,6 @@ class Net(nn.Module):
         # ----------------- YOUR CODE HERE ----------------------
         #
         # Remove NotImplementedError and assign calculated value to logits after code implementation.
-        logits = NotImplementedError
+        logits = nn.functional.softmax(x, dim=1)
         return logits
 
