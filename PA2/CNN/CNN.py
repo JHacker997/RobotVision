@@ -1,7 +1,23 @@
 __author__ = "John Hacker"
 
-import torch.nn as nn
+'''
+    Each model builds from the previous model. The hardest part of this
+assignment was learning how to get the first model to work. I found that
+keeping the activation function in the fully connected layers as sigmoid
+provided the best accuracy while ReLU was best for the convolutional layers.
+Another big problem I faced was getting the dimensions of the matrices to
+match where they could do multiplication for the transition from the last
+convolutional layer to the first fully connected layer. My accuracies are
+generally very close or above the expected accuracies, with the exception
+of the 5th model. I am not sure why my dropout hurt the accuracy when I ran
+it for the whole stretch; but, it is still getting 9/10, which is pretty 
+good.
+    I supplied outputs for when I ran each model on my laptop for secuirty
+in case a model is not able to run on yours for some reason. They are in the
+Hacker_outputs folder in same directory as this file.
+'''
 
+import torch.nn as nn
 
 class Model_1(nn.Module):
     def __init__(self, input_dim, hidden_size):
@@ -259,7 +275,7 @@ class Net(nn.Module):
         # Define softmax layer, use the features.
         # ----------------- YOUR CODE HERE ----------------------
         #
-        # Remove NotImplementedError and assign calculated value to logits after code implementation.
+
         logits = nn.functional.softmax(x, dim=1)
         return logits
 
