@@ -99,7 +99,7 @@ def lucasKanade(img1, img2, pyr_mode=False, idx=0, retval=0):
     # Take off the x and y ticks
     pyplot.xticks([]), pyplot.yticks([])
 
-    # Draw randomly colored lines for double the velocity at each corner found before
+    # Draw randomly colored lines for the velocity at each corner found before
     hsv = matplotlib.cm.get_cmap('hsv')
     height = img2.shape[0]
     length = len(corner_pts2)
