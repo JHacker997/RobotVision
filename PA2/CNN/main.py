@@ -214,10 +214,10 @@ def main():
 
     if args.mode == 5:
         args.learning_rate = 0.03
-        args.num_epochs = 40
-        args.hiddenSize = 1000
+        args.epochs = 40
+        args.hidden_size = 1000
 
-        model = Net(4, args).to(device)
+        model = Net(5, args).to(device)
 
         accuracy = train_and_test(args, device, model, test_loader, train_loader)
 

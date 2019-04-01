@@ -212,7 +212,7 @@ class Model_5(nn.Module):
         self.drop = nn.Dropout()
         self.input_layer = nn.Linear(self.in_dim, hidden_size)
         self.middle_layer = nn.Linear(hidden_size, hidden_size)
-        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
         
         # Uncomment the following stmt with appropriate input dimensions once model's implementation is done.
         self.output_layer = nn.Linear(hidden_size, 10)
@@ -230,7 +230,7 @@ class Model_5(nn.Module):
         features = features.view(xSize, -1)
         features = self.drop(features)
         features = self.input_layer(features)
-        features = self.relu(features)
+        features = self.sigmoid(features)
         features = self.middle_layer(features)
         features = self.sigmoid(features)
         features = self.output_layer(features)
