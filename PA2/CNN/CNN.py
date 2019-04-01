@@ -10,7 +10,7 @@ match where they could do multiplication for the transition from the last
 convolutional layer to the first fully connected layer. My accuracies are
 generally very close or above the expected accuracies, with the exception
 of the 5th model. I am not sure why my dropout hurt the accuracy when I ran
-it for the whole stretch; but, it is still getting 9/10, which is pretty 
+it for the whole stretch; but, it is still getting 8/10, which is pretty 
 good.
     I supplied outputs for when I ran each model on my laptop for secuirty
 in case a model is not able to run on yours for some reason. They are in the
