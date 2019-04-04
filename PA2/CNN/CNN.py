@@ -276,6 +276,6 @@ class Net(nn.Module):
         # ----------------- YOUR CODE HERE ----------------------
         #
 
-        logits = nn.functional.softmax(x, dim=1)
+        logits = nn.functional.log_softmax(x, dim=0)
         return logits
 
